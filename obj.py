@@ -5,5 +5,5 @@ class Object(object):
 	def __init__(self):
 		pass
 
-	def update(self, pygame, screen, deltaTime):
+	def update(self, pygame, screen, background, deltaTime):
 		pass

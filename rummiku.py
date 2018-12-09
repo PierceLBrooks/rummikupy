@@ -9,6 +9,9 @@ def run(pygame, arguments):
 	resolution = (800, 600)
 	pygame.display.init()
 	screen = pygame.display.set_mode(resolution)
+	background = pygame.Surface(screen.get_size())
+	background = background.convert()
+	background.fill((0, 0, 0))
 	clock = pygame.time.Clock()
 	objects = []
 	objects.append(obj.Object())
@@ -19,7 +22,7 @@ def run(pygame, arguments):
 		deltaTime = float(clock.tick())/1000.0
 		for object in objects:
 			print(object)
-			object.update(pygame, screen, deltaTime)
+			object.update(pygame, screen, background, deltaTime)
 		
 		#input
 		for event in pygame.event.get():
@@ -30,6 +33,7 @@ def run(pygame, arguments):
 		
 		#render
 		pygame.display.flip()
+		background.fill((0, 0, 0))
 	
 	pygame.display.quit()
 	return 0
@@ -37,4 +41,4 @@ def run(pygame, arguments):
 if (__name__ == "__main__"):
 	arguments = sys.argv
 	pygame = importlib.import_module("pygame")
-	sys.exit(run(pygame, arguments))
+	run(pygame, arguments)
