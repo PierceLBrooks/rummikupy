@@ -8,7 +8,7 @@ def cwd():
 	frame = None
 	path = ""
 	try:
-		frame = inspect.current_frame()
+		frame = inspect.currentframe()
 		path += str(os.path.realdir(frame))
 	except:
 		pass
@@ -17,7 +17,8 @@ def cwd():
 	return path
 
 def loadImage(pygame, name):
-	path = str(os.path.join(cwd(), name))
+	path = os.path.join(cwd(), name)
+	print(path)
 	try:
 		image = pygame.image.load(path)
 		if (image.get_alpha == None):
@@ -25,6 +26,7 @@ def loadImage(pygame, name):
 		else:
 			image = image.convert_alpha()
 	except pygame.error as message:
-		print("Cannot load image: "+path)
+		print("Cannot load image: "+str(path))
+		print(message)
 		raise SystemExit
 	return image

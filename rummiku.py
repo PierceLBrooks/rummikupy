@@ -2,7 +2,7 @@
 # Authors: Pierce Brooks, Amalie Brooks, & Jeff Busch
 
 import sys
-import obj
+import piece
 import importlib
 
 def run(pygame, arguments):
@@ -14,7 +14,7 @@ def run(pygame, arguments):
 	background.fill((0, 0, 0))
 	clock = pygame.time.Clock()
 	objects = []
-	objects.append(obj.Object())
+	objects.append(piece.Piece((resolution[0]/2, resolution[1]/2)))
 	
 	quit = False
 	while not (quit):
