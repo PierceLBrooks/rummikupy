@@ -6,23 +6,25 @@ import piece
 import importlib
 
 def run(pygame, arguments):
-	resolution = (800, 600)
+	resolution = [800, 600]
 	pygame.display.init()
-	screen = pygame.display.set_mode(resolution)
+	screen = pygame.display.set_mode(tuple(resolution))
 	background = pygame.Surface(screen.get_size())
 	background = background.convert()
 	background.fill((0, 0, 0))
 	clock = pygame.time.Clock()
 	objects = []
-	objects.append(piece.Piece((resolution[0]/2, resolution[1]/2)))
+	objects.append(piece.Piece([resolution[0]/2, resolution[1]/2]))
 	
 	quit = False
 	while not (quit):
 		#update
+		background.fill((0, 0, 0))
 		deltaTime = float(clock.tick())/1000.0
 		for object in objects:
 			print(object)
 			object.update(pygame, screen, background, deltaTime)
+		screen.blit(background, (0, 0))
 		
 		#input
 		for event in pygame.event.get():
@@ -33,7 +35,6 @@ def run(pygame, arguments):
 		
 		#render
 		pygame.display.flip()
-		background.fill((0, 0, 0))
 	
 	pygame.display.quit()
 	return 0
