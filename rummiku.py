@@ -4,6 +4,7 @@
 import sys
 import piece
 import importlib
+import grid as g
 
 def run(pygame, arguments):
 	resolution = [800, 600]
@@ -12,17 +13,18 @@ def run(pygame, arguments):
 	background = pygame.Surface(screen.get_size())
 	background = background.convert()
 	background.fill((0, 0, 0))
-	clock = pygame.time.Clock()
 	objects = []
 	objects.append(piece.Piece([resolution[0]/2, resolution[1]/2]))
+	grid = g.makeGrid(pygame, resolution[0], resolution[1], 50, 50)
+	clock = pygame.time.Clock()
 	
 	quit = False
 	while not (quit):
 		#update
 		background.fill((0, 0, 0))
 		deltaTime = float(clock.tick())/1000.0
+		background.blit(grid, (0,0))
 		for object in objects:
-			print(object)
 			object.update(pygame, screen, background, deltaTime)
 		screen.blit(background, (0, 0))
 		

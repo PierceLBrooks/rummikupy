@@ -13,7 +13,6 @@ class Piece(obj.Object):
 	def update(self, pygame, screen, background, deltaTime):
 		if (self.image == None):
 			self.image = util.loadImage(pygame, "piece.png")
-		print(deltaTime)
 		range = 500
 		self.position[0] += int(deltaTime*float(random.randint(-range, range)))
 		self.position[1] += int(deltaTime*float(random.randint(-range, range)))
