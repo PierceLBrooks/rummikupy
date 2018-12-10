@@ -14,9 +14,10 @@ def run(pygame, arguments):
 	background = background.convert()
 	background.fill((0, 0, 0))
 	objects = []
-	objects.append(piece.Piece([resolution[0]/2, resolution[1]/2]))
+	objects.append(piece.Piece([resolution[0]/2, resolution[1]/2], None, None, None))
 	grid = g.makeGrid(pygame, resolution[0], resolution[1], 50, 50)
 	clock = pygame.time.Clock()
+	rectangle_draging = False
 	
 	quit = False
 	while not (quit):
@@ -34,6 +35,23 @@ def run(pygame, arguments):
 				quit = True
 		if (quit):
 			break
+		elif event.type == pygame.MOUSEBUTTONDOWN:
+			if event.button == 1:            
+				if object.rect.collidepoint(event.pos):
+					rectangle_draging = True
+					mouse_x, mouse_y = event.pos
+					offset_x = object.position[0] - mouse_x
+					offset_y = object.position[1] - mouse_y
+
+		elif event.type == pygame.MOUSEBUTTONUP:
+			if event.button == 1:            
+				rectangle_draging = False
+
+		elif event.type == pygame.MOUSEMOTION:
+			if rectangle_draging:
+				mouse_x, mouse_y = event.pos
+				object.position[0] = mouse_x + offset_x
+				object.position[1] = mouse_y + offset_y
 		
 		#render
 		pygame.display.flip()
