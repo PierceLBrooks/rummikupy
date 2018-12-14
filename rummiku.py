@@ -20,6 +20,13 @@ def run(pygame, arguments):
 	
 	# Is it ok to have this here?
 	rectangle_draging = False
+	mouse_down = False
+	mouse_pos = None
+	dragger = None
+	offset_x = 0
+	offset_y = 0
+	mouse_x = 0
+	mouse_y = 0
 	
 	quit = False
 	while not (quit):
@@ -29,6 +36,19 @@ def run(pygame, arguments):
 		#background.blit(grid, (0,0))
 		for object in objects:
 			object.update(pygame, screen, background, deltaTime)
+			if (mouse_down):
+				if rectangle_draging:
+					if (dragger == object):
+						mouse_x, mouse_y = event.pos
+						object.position[0] = mouse_x + offset_x
+						object.position[1] = mouse_y + offset_y
+				elif object.rect.collidepoint(mouse_pos):
+					if (dragger == None):
+						rectangle_draging = True
+						dragger = object
+						mouse_x, mouse_y = event.pos
+						offset_x = object.position[0] - mouse_x
+						offset_y = object.position[1] - mouse_y
 		screen.blit(background, (0, 0))
 		
 		#input
@@ -46,21 +66,14 @@ def run(pygame, arguments):
 		#I found this code on google. I modified it to work with our objects.
 			elif event.type == pygame.MOUSEBUTTONDOWN:
 				if event.button == 1:            
-					if object.rect.collidepoint(event.pos):
-						rectangle_draging = True
-						mouse_x, mouse_y = event.pos
-						offset_x = object.position[0] - mouse_x
-						offset_y = object.position[1] - mouse_y
+					mouse_down = True
+					mouse_pos = event.pos
 
 			elif event.type == pygame.MOUSEBUTTONUP:
 				if event.button == 1:            
 					rectangle_draging = False
-
-			elif event.type == pygame.MOUSEMOTION:
-				if rectangle_draging:
-					mouse_x, mouse_y = event.pos
-					object.position[0] = mouse_x + offset_x
-					object.position[1] = mouse_y + offset_y
+					mouse_down = False
+					dragger = None
 		
 		#render
 		pygame.display.flip()
