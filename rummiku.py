@@ -39,14 +39,14 @@ def run(pygame, arguments):
 			if (mouse_down):
 				if rectangle_draging:
 					if (dragger == object):
-						mouse_x, mouse_y = event.pos
+						mouse_x, mouse_y = mouse_pos
 						object.position[0] = mouse_x + offset_x
 						object.position[1] = mouse_y + offset_y
 				elif object.rect.collidepoint(mouse_pos):
 					if (dragger == None):
 						rectangle_draging = True
 						dragger = object
-						mouse_x, mouse_y = event.pos
+						mouse_x, mouse_y = mouse_pos
 						offset_x = object.position[0] - mouse_x
 						offset_y = object.position[1] - mouse_y
 		screen.blit(background, (0, 0))
