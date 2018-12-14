@@ -74,6 +74,9 @@ def run(pygame, arguments):
 					rectangle_draging = False
 					mouse_down = False
 					dragger = None
+					
+			elif event.type == pygame.MOUSEMOTION:
+				mouse_pos = event.pos
 		
 		#render
 		pygame.display.flip()
