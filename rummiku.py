@@ -24,6 +24,7 @@ def run(pygame, arguments):
 	mouse_pos = None
 	dragger = None
 	set_down = []
+	repositioned = []
 	offset_x = 0
 	offset_y = 0
 	mouse_x = 0
@@ -43,6 +44,7 @@ def run(pygame, arguments):
 						mouse_x, mouse_y = mouse_pos
 						sprite.position[0] = mouse_x + offset_x
 						sprite.position[1] = mouse_y + offset_y
+
 				elif sprite.rect.collidepoint(mouse_pos):
 					if (dragger == None):
 						rectangle_draging = True
@@ -50,6 +52,10 @@ def run(pygame, arguments):
 						mouse_x, mouse_y = mouse_pos
 						offset_x = sprite.position[0] - mouse_x
 						offset_y = sprite.position[1] - mouse_y
+				for num, sprite in enumerate (repositioned):
+					if sprite.rect.collidepoint(mouse_pos):
+						del repositioned[num]
+						break
 
 
 		screen.blit(background, (0, 0))
@@ -66,8 +72,6 @@ def run(pygame, arguments):
 					sprites.add(piece.Piece([resolution[0]/2, resolution[1]/2]))
 					print(sprites)
 					
-
-		#I found this code on google. I modified it to work with our objects.
 			elif event.type == pygame.MOUSEBUTTONDOWN:
 				if event.button == 1:            
 					mouse_down = True
@@ -85,8 +89,18 @@ def run(pygame, arguments):
 								if pygame.sprite.collide_rect(sprite, dragger):
 									sprite.position[0] = 0
 									sprite.position[1] = 0
+									sprite.update(pygame, screen, background, deltaTime)
+									if (len(repositioned) <= 1):
+										repositioned.append(sprite)
+										break
 									break
-								# if sprite in set_down
+						if (len(repositioned) > 1):
+							if pygame.sprite.collide_rect(sprite, repositioned[0]):
+								# for sprite in repositioned:
+									sprite.position[0] += repositioned[-1].rect.right
+									repositioned.append(sprite)
+									break
+									
 					dragger = None
 					
 			elif event.type == pygame.MOUSEMOTION:
