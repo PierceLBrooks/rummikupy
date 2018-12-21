@@ -23,7 +23,7 @@ def run(pygame, arguments):
 	mouse_down = False
 	mouse_pos = None
 	dragger = None
-	set_down = None
+	set_down = []
 	offset_x = 0
 	offset_y = 0
 	mouse_x = 0
@@ -77,18 +77,18 @@ def run(pygame, arguments):
 				if event.button == 1:            
 					mouse_down = False
 					rectangle_draging = False
-					
-					#this is failing because set_down and dragger get applied when you click a new object twice. But I have no clue how to fix this...	
-					#I'm super confused on how to set an object to something uniquely
-					if (set_down == sprite and dragger == sprite and len(sprites) > 1):
+					set_down.append(dragger)
+					for sprite in sprites:	
 						if pygame.sprite.collide_rect(set_down, dragger):
 							dragger = None
 							sprite.position[0] = 0
 							sprite.position[1] = 0
-							set_down = sprite
-					else:
-						dragger = None
-						set_down = sprite
+							# break
+						# if sprite in set_down
+
+				else:
+					dragger = None
+					set_down = sprite
 					
 			elif event.type == pygame.MOUSEMOTION:
 				mouse_pos = event.pos
