@@ -78,7 +78,8 @@ def run(pygame, arguments):
 					mouse_down = False
 					rectangle_draging = False
 					if not (dragger == None):
-						set_down.append(dragger)
+						if	dragger not in set_down:
+							set_down.append(dragger)
 						for sprite in set_down:	
 							if not (sprite == dragger):
 								if pygame.sprite.collide_rect(sprite, dragger):
