@@ -8,7 +8,7 @@ import pygame
 
 class Piece(pygame.sprite.Sprite):
 	def __init__(self, position):
-		super().__init__()
+		super(Piece, self).__init__()
 		self.position = position
 		self.image = None
 		self.imageX = None

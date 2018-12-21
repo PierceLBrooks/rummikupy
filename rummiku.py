@@ -77,18 +77,16 @@ def run(pygame, arguments):
 				if event.button == 1:            
 					mouse_down = False
 					rectangle_draging = False
-					set_down.append(dragger)
-					for sprite in sprites:	
-						if pygame.sprite.collide_rect(set_down, dragger):
-							dragger = None
-							sprite.position[0] = 0
-							sprite.position[1] = 0
-							# break
-						# if sprite in set_down
-
-				else:
+					if not (dragger == None):
+						set_down.append(dragger)
+						for sprite in set_down:	
+							if not (sprite == dragger):
+								if pygame.sprite.collide_rect(sprite, dragger):
+									sprite.position[0] = 0
+									sprite.position[1] = 0
+									break
+								# if sprite in set_down
 					dragger = None
-					set_down = sprite
 					
 			elif event.type == pygame.MOUSEMOTION:
 				mouse_pos = event.pos
