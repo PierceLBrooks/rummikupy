@@ -2,6 +2,7 @@
 # Authors: Pierce Brooks, Amalie Brooks, & Jeff Busch
 
 import sys
+import util
 import piece
 import importlib
 import grid as g
@@ -59,6 +60,11 @@ def run(pygame, arguments):
 
 
 		screen.blit(background, (0, 0))
+		
+		"""
+		if not (dragger == None):
+			dragger.setScale(util.multiplyVector(dragger.getScale(), 1.0+(deltaTime*25.0)))
+		"""
 		
 		#input
 		for event in pygame.event.get():
