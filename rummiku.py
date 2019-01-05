@@ -88,7 +88,7 @@ def run(pygame, arguments):
 							if not (sprite == dragger):
 								if pygame.sprite.collide_rect(sprite, dragger):
 									sprite.position[0] = 0
-									sprite.position[1] = 0
+									sprite.position[1] = 600 - sprite.image.get_height()
 									sprite.update(pygame, screen, background, deltaTime)
 									if (len(repositioned) <= 1):
 										repositioned.append(sprite)
@@ -99,6 +99,7 @@ def run(pygame, arguments):
 								# for sprite in repositioned:
 									sprite.position[0] += repositioned[-1].rect.right
 									repositioned.append(sprite)
+									dragger = None
 									break
 									
 					dragger = None
