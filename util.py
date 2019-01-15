@@ -9,7 +9,7 @@ def cwd():
 	path = ""
 	try:
 		frame = inspect.currentframe()
-		path += str(os.path.realdir(frame))
+		path += str(os.path.dirname(os.path.abspath(inspect.getfile(frame))))
 	except:
 		pass
 	finally:
@@ -30,25 +30,25 @@ def loadImage(pygame, name):
 		print(message)
 		raise SystemExit
 	return image
-	
+
 def addVector(vector, number):
 	result = []
 	for i in range(len(vector)):
 		result.append(vector[i]+number)
 	return result
-	
+
 def subtractVector(vector, number):
 	result = []
 	for i in range(len(vector)):
 		result.append(vector[i]-number)
 	return result
-	
+
 def multiplyVector(vector, number):
 	result = []
 	for i in range(len(vector)):
 		result.append(vector[i]*number)
 	return result
-	
+
 def divideVector(vector, number):
 	result = []
 	for i in range(len(vector)):
@@ -62,7 +62,7 @@ def addVectors(vector, other):
 	for i in range(len(vector)):
 		result.append(vector[i]+other[i])
 	return result
-	
+
 def subtractVectors(vector, other):
 	result = []
 	if (len(vector) < len(other)):
@@ -70,7 +70,7 @@ def subtractVectors(vector, other):
 	for i in range(len(vector)):
 		result.append(vector[i]-other[i])
 	return result
-	
+
 def multiplyVectors(vector, other):
 	result = []
 	if (len(vector) < len(other)):
@@ -78,7 +78,7 @@ def multiplyVectors(vector, other):
 	for i in range(len(vector)):
 		result.append(vector[i]*other[i])
 	return result
-	
+
 def divideVectors(vector, other):
 	result = []
 	if (len(vector) < len(other)):
